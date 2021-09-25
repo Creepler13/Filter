@@ -1,5 +1,6 @@
 package core;
 
+import core.filter.GameOfLife;
 import core.filter.Gaus;
 import core.filter.Gaus5;
 import core.filter.Identisch;
@@ -28,5 +29,5 @@ public class FilterLib {
 	public static final Filter SCHARR = new Scharr();
 	public static final Filter SOBEL = new Sobel();
 	public static final Filter PREWITT = new Prewitt();
-
+	public static final Filter GAME_OF_LIVE = new GameOfLife();
 }

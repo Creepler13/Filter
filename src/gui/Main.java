@@ -50,8 +50,8 @@ public class Main {
 				filter[filterSelector.getSelectedIndex()].generate(p).getPicture());
 
 		viewerG.show();
-		
-		Viewer viewer = new Viewer("Original -> " + filterNames[filterSelector.getSelectedIndex()],
+
+		Viewer viewer = new Viewer("Original -> " + filterNames[filterSelector.getSelectedIndex()] + " RGB",
 				filter[filterSelector.getSelectedIndex()].apply(p).getPicture());
 
 		viewer.show();
