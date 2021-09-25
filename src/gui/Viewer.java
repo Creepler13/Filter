@@ -18,9 +18,14 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
+import core.filter.GameOfLife;
+import core.filterTypes.Filter;
+import de.informatics4kids.Picture;
+
 public class Viewer implements ActionListener {
 
-	private BufferedImage image; // the rasterized image
+	private BufferedImage image;
+	private Picture picture;// the rasterized image
 	private JFrame frame; // on-screen view
 	private String filename, title; // name of file
 
@@ -28,8 +33,8 @@ public class Viewer implements ActionListener {
 	 * Create a picture by reading in a .png, .gif, or .jpg from the given filename
 	 * or URL name.
 	 */
-	public Viewer(String title, BufferedImage image) {
-		this.image = image;
+	public Viewer(String title, Picture image) {
+		setImage(image);
 		this.title = title;
 	}
 
@@ -45,17 +50,32 @@ public class Viewer implements ActionListener {
 		return new JLabel(icon);
 	}
 
+	public void setImage(Picture image) {
+		this.image = image.getPicture();
+		this.picture = image;
+
+		// PictureViewer pv = new PictureViewer(this.image);
+		// pv.show();
+		if (frame != null) {
+			frame.setContentPane(getJLabel());
+			frame.pack();
+			// frame.repaint();
+		}
+	}
+
 	/**
 	 * Zeigt das Bild innerhalb einen Fensters an. Das Bild kann als .png oder .jpg
 	 * Bild gespeichert werden.
 	 */
+
+	private JMenuBar menuBar = new JMenuBar();
+
 	public void show() {
 
 		// create the GUI for viewing the image if needed
 		if (frame == null) {
 			frame = new JFrame(title);
 
-			JMenuBar menuBar = new JMenuBar();
 			JMenu menu = new JMenu("Datei");
 			menuBar.add(menu);
 			JMenuItem menuItem = new JMenuItem(" Speichern...   ");
@@ -74,11 +94,59 @@ public class Viewer implements ActionListener {
 			frame.setVisible(true);
 		}
 
-		frame.repaint(/* draw */);
+		// frame.repaint(/* draw */);
 	}
 
 	private void save(String name) {
 		save(new File(name));
+	}
+
+	private static Filter lastApplied;
+	private static int lastAppliedCount = 1;
+
+	public void addFilter(Filter[] filter) {
+		JMenu menu = new JMenu("Filter");
+		menuBar.add(menu);
+
+		for (Filter f : filter) {
+			JMenuItem menuItem = new JMenuItem(f.getClass().getSimpleName());
+			menuItem.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+
+					setImage(f.apply(picture));
+
+					if (lastApplied != null)
+						if (f == lastApplied) {
+							lastAppliedCount++;
+
+							String title = "";
+							String[] titleSplit = frame.getTitle().split(" ");
+							for (int i = 0; i < titleSplit.length - (lastAppliedCount == 2 ? 0 : 1); i++) {
+								title += titleSplit[i] + " ";
+							}
+
+							frame.setTitle(title + "x" + lastAppliedCount);
+							lastApplied = f;
+
+							return;
+						}
+
+					frame.setTitle(frame.getTitle() + " -> " + f.getClass().getSimpleName());
+					lastApplied = f;
+					lastAppliedCount = 1;
+				}
+
+			});
+
+			if (f.getClass() == GameOfLife.class)
+				menuItem.setAccelerator(
+						KeyStroke.getKeyStroke(KeyEvent.VK_X, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+
+			menu.add(menuItem);
+		}
+
 	}
 
 	/**
