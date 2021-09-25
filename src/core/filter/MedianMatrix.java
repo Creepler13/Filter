@@ -8,7 +8,7 @@ public class MedianMatrix extends MatrixFilter {
 
 	@Override
 	public int getDivisor() {
-		return 3;
+		return 9;
 	}
 
 	@Override

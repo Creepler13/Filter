@@ -7,26 +7,27 @@ public abstract class MatrixFilter extends Filter {
 	@Override
 	public Color calculate(Color[][] grid) {
 
-		double gray = 0;
+		double r = 0, g = 0, b = 0;
 
 		for (int i = 0; i < getSize(); i++) {
 			for (int j = 0; j < getSize(); j++) {
 
-				gray = gray
-						+ (grid[i][j].getRed() * 0.299 + grid[i][j].getGreen() * 0.567 + grid[i][j].getBlue() * 0.114)
-								* getMatrix()[i][j];
+				r = r + grid[i][j].getRed() * getMatrix()[i][j];
+				g = g + grid[i][j].getGreen() * getMatrix()[i][j];
+				b = b + grid[i][j].getBlue() * getMatrix()[i][j];
 
 			}
 		}
 
-		gray = gray / getDivisor();
+		r = r / getDivisor();
+		g = g / getDivisor();
+		b = b / getDivisor();
 
-		if (gray < 0)
-			gray = 0;
-		if (gray > 255)
-			gray = 255;
+		r = r < 0 ? 0 : r > 255 ? 255 : r;
+		g = g < 0 ? 0 : g > 255 ? 255 : g;
+		b = b < 0 ? 0 : b > 255 ? 255 : b;
 
-		return new Color((int) gray, (int) gray, (int) gray);
+		return new Color((int) r, (int) g, (int) b);
 
 	}
 

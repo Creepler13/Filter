@@ -21,7 +21,9 @@ public abstract class Filter {
 				for (int i = 0; i < getSize(); i++) {
 					for (int j = 0; j < getSize(); j++) {
 
-						grid[i][j] = pic.getColor(x + i, y + j);
+						Color c = pic.getColor(x + i, y + j);
+						int gray = (int) (c.getRed() * 0.299 + c.getGreen() * 0.567 + c.getBlue() * 0.114);
+						grid[i][j] = new Color(gray, gray, gray);
 
 					}
 				}
@@ -40,22 +42,24 @@ public abstract class Filter {
 	public Picture apply(Picture pic) {
 		Picture picApplied = new Picture(pic.widthX(), pic.heightY());
 
-		Picture filterLayer = generate(pic);
+		for (int x = 0; x < pic.widthX() - getSize() + 1; x++) {
+			for (int y = 0; y < pic.heightY() - getSize() + 1; y++) {
 
-		for (int x = 0; x < pic.widthX(); x++) {
-			for (int y = 0; y < pic.heightY(); y++) {
+				Color[][] grid = new Color[getSize()][getSize()];
 
-				Color picColor = pic.getColor(x, y);
-				Color filterLayerColor = filterLayer.getColor(x, y);
+				for (int i = 0; i < getSize(); i++) {
+					for (int j = 0; j < getSize(); j++) {
 
-				Color newColor = new Color((picColor.getRed() + filterLayerColor.getRed()) % 255,
-						(picColor.getGreen() + filterLayerColor.getGreen()) % 255,
-						(picColor.getBlue() + filterLayerColor.getBlue()) % 255);
+						grid[i][j] = pic.getColor(x + i, y + j);
 
-				picApplied.setColor(x, y, newColor);
+					}
+				}
+
+				Color newColor = calculate(grid);
+
+				picApplied.setColor(x + (int) getSize() / 2, y + (int) getSize() / 2, newColor);
 
 			}
-
 		}
 
 		return picApplied;
