@@ -2,10 +2,10 @@ package core.filter;
 
 import core.filterTypes.MatrixGSqrtFilter;
 
-public class Sobel extends MatrixGSqrtFilter {
+public class Prewitt extends MatrixGSqrtFilter {
 
-	double[][] SobelG1 = { { 1, 2, 1 }, { 0, 0, 0 }, { -1, -2, -1 } };
-	double[][] SobelG2 = { { 1, 0, -1 }, { 2, 0, -2 }, { 1, 0, -1 } };
+	double[][] PrewittG1 = { { 1, 1, 1 }, { 0, 0, 0 }, { -1, -1, -1 } };
+	double[][] PrewittG2 = { { 1, 0, -1 }, { 1, 0, -1 }, { 1, 0, -1 } };
 
 	@Override
 	public int getSize() {
@@ -15,13 +15,13 @@ public class Sobel extends MatrixGSqrtFilter {
 	@Override
 	public double[][] getG1() {
 		// TODO Auto-generated method stub
-		return SobelG1;
+		return PrewittG1;
 	}
 
 	@Override
 	public double[][] getG2() {
 		// TODO Auto-generated method stub
-		return SobelG2;
+		return PrewittG2;
 	}
 
 	@Override

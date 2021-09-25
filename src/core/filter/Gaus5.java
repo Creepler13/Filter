@@ -1,6 +1,6 @@
 package core.filter;
 
-import core.MatrixFilter;
+import core.filterTypes.MatrixFilter;
 
 public class Gaus5 extends MatrixFilter {
 

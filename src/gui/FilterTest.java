@@ -4,8 +4,8 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 
-import core.Filter;
 import core.FilterLib;
+import core.filterTypes.Filter;
 import de.informatics4kids.Picture;
 import de.informatics4kids.PictureViewer;
 

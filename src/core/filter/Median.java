@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-import core.Filter;
+import core.filterTypes.Filter;
 
 public class Median extends Filter {
 

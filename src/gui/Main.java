@@ -6,8 +6,8 @@ import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-import core.Filter;
 import core.FilterLib;
+import core.filterTypes.Filter;
 import de.informatics4kids.Picture;
 
 public class Main {
