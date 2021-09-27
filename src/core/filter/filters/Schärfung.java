@@ -1,10 +1,10 @@
-package core.filter;
+package core.filter.filters;
 
-import core.filterTypes.MatrixFilter;
+import core.filter.filterTypes.MatrixFilter;
 
-public class LaplaceMin extends MatrixFilter {
+public class Schärfung extends MatrixFilter {
 
-	private double[][] matrix = { { 1, 0, -1 }, { 0, 0, 0 }, { -1, 0, 1 } };
+	static double[][] matrix = { { 0, -1, 0 }, { -1, 5, -1 }, { 0, -1, 0 } };
 
 	@Override
 	public int getDivisor() {
@@ -21,6 +21,6 @@ public class LaplaceMin extends MatrixFilter {
 	public int getSize() {
 		// TODO Auto-generated method stub
 		return 3;
-
 	}
+
 }

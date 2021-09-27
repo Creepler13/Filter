@@ -1,10 +1,10 @@
-package core.filter;
+package core.filter.filters;
 
-import core.filterTypes.MatrixFilter;
+import core.filter.filterTypes.MatrixFilter;
 
-public class LaplaceMedium extends MatrixFilter {
+public class Relief extends MatrixFilter {
 
-	private double[][] matrix = { { 0, 1, 0 }, { 1, -4, 1 }, { 0, 1, 0 } };
+	static double[][] matrix = { { -2, -1, 0 }, { -1, 1, 1 }, { 0, 1, 2 } };
 
 	@Override
 	public int getDivisor() {

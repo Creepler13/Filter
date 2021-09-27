@@ -1,10 +1,10 @@
-package core.filter;
+package core.filter.filters;
 
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-import core.filterTypes.Filter;
+import core.filter.filterTypes.Filter;
 
 public class Median extends Filter {
 

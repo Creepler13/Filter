@@ -1,6 +1,6 @@
-package core.filter;
+package core.filter.filters;
 
-import core.filterTypes.MatrixGSqrtFilter;
+import core.filter.filterTypes.MatrixGSqrtFilter;
 
 public class Scharr extends MatrixGSqrtFilter {
 

@@ -1,4 +1,4 @@
-package core.filterTypes;
+package core.filter.filterTypes;
 
 import java.awt.Color;
 

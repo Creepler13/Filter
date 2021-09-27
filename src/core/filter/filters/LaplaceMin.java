@@ -1,14 +1,14 @@
-package core.filter;
+package core.filter.filters;
 
-import core.filterTypes.MatrixFilter;
+import core.filter.filterTypes.MatrixFilter;
 
-public class Gaus extends MatrixFilter {
+public class LaplaceMin extends MatrixFilter {
 
-	double[][] matrix = { { 1, 2, 1 }, { 2, 4, 2 }, { 1, 2, 1 } };
+	private double[][] matrix = { { 1, 0, -1 }, { 0, 0, 0 }, { -1, 0, 1 } };
 
 	@Override
 	public int getDivisor() {
-		return 16;
+		return 1;
 	}
 
 	@Override
@@ -21,6 +21,6 @@ public class Gaus extends MatrixFilter {
 	public int getSize() {
 		// TODO Auto-generated method stub
 		return 3;
-	}
 
+	}
 }

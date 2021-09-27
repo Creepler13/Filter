@@ -1,19 +1,19 @@
-package core;
+package core.filter;
 
-import core.filter.GameOfLife;
-import core.filter.Gaus;
-import core.filter.Gaus5;
-import core.filter.Identisch;
-import core.filter.LaplaceMax;
-import core.filter.LaplaceMedium;
-import core.filter.LaplaceMin;
-import core.filter.MedianMatrix;
-import core.filter.Prewitt;
-import core.filter.Relief;
-import core.filter.Scharr;
-import core.filter.Schärfung;
-import core.filter.Sobel;
-import core.filterTypes.Filter;
+import core.filter.filterTypes.Filter;
+import core.filter.filters.GameOfLife;
+import core.filter.filters.Gaus;
+import core.filter.filters.Gaus5;
+import core.filter.filters.Identisch;
+import core.filter.filters.LaplaceMax;
+import core.filter.filters.LaplaceMedium;
+import core.filter.filters.LaplaceMin;
+import core.filter.filters.MedianMatrix;
+import core.filter.filters.Prewitt;
+import core.filter.filters.Relief;
+import core.filter.filters.Scharr;
+import core.filter.filters.Schärfung;
+import core.filter.filters.Sobel;
 
 public class FilterLib {
 

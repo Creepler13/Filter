@@ -11,15 +11,18 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
+import javax.swing.plaf.DimensionUIResource;
 
-import core.filter.GameOfLife;
-import core.filterTypes.Filter;
+import core.filter.filterTypes.Filter;
+import core.filter.filters.GameOfLife;
 import de.informatics4kids.Picture;
 
 public class Viewer implements ActionListener {
@@ -27,39 +30,32 @@ public class Viewer implements ActionListener {
 	private BufferedImage image;
 	private Picture picture;// the rasterized image
 	private JFrame frame; // on-screen view
-	private String filename, title; // name of file
+	private String filename; // name of file
+
+	private JBackgroundPanel jbc = new JBackgroundPanel();
 
 	/**
 	 * Create a picture by reading in a .png, .gif, or .jpg from the given filename
 	 * or URL name.
 	 */
-	public Viewer(String title, Picture image) {
-		setImage(image);
-		this.title = title;
+	public Viewer(Picture image) {
+		show();
+		setImage(image, true);
 	}
 
-	/**
-	 * Return a JLabel containing this Picture, for embedding in a JPanel, JFrame or
-	 * other GUI widget.
-	 */
-	private JLabel getJLabel() {
-		if (image == null) {
-			return null;
-		} // no image available
-		ImageIcon icon = new ImageIcon(image);
-		return new JLabel(icon);
-	}
+	public void setImage(Picture picture, boolean isNew) {
+		this.image = picture.getPicture();
+		this.picture = picture;
 
-	public void setImage(Picture image) {
-		this.image = image.getPicture();
-		this.picture = image;
-
-		// PictureViewer pv = new PictureViewer(this.image);
-		// pv.show();
 		if (frame != null) {
-			frame.setContentPane(getJLabel());
-			frame.pack();
-			// frame.repaint();
+			if (isNew) {
+				frame.remove(jbc);
+				jbc = new JBackgroundPanel();
+				frame.add(jbc);
+			}
+			jbc.setBackground(this.image);
+			frame.setBounds(frame.getX(), frame.getY(), picture.widthX(), picture.heightY());
+
 		}
 	}
 
@@ -74,23 +70,46 @@ public class Viewer implements ActionListener {
 
 		// create the GUI for viewing the image if needed
 		if (frame == null) {
-			frame = new JFrame(title);
+			frame = new JFrame();
 
-			JMenu menu = new JMenu("Datei");
+			JMenu menu = new JMenu("File");
 			menuBar.add(menu);
-			JMenuItem menuItem = new JMenuItem(" Speichern...   ");
-			menuItem.addActionListener(this);
-			menuItem.setAccelerator(
+			JMenuItem menuItemSave = new JMenuItem(" Save...   ");
+			menuItemSave.addActionListener(this);
+			menuItemSave.setAccelerator(
 					KeyStroke.getKeyStroke(KeyEvent.VK_S, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
-			menu.add(menuItem);
+			menu.add(menuItemSave);
+
+			JMenuItem menuItemOpen = new JMenuItem(" Open...   ");
+			menuItemOpen.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					JFileChooser jfc = new JFileChooser();
+					jfc.showOpenDialog(null);
+					File f = jfc.getSelectedFile();
+
+					if (!(f.getAbsolutePath().toLowerCase().endsWith("jpg")
+							|| f.getAbsolutePath().toLowerCase().endsWith("png")
+							|| f.getAbsolutePath().toLowerCase().endsWith("jpeg"))) {
+						JOptionPane.showMessageDialog(null, "The selected file is is not of the right type (jpg,png)",
+								"FileType Error", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+
+					Picture p = new Picture(f.getAbsolutePath());
+					setImage(p, true);
+
+				}
+
+			});
+			menu.add(menuItemOpen);
 
 			frame.setJMenuBar(menuBar);
-			frame.setContentPane(getJLabel());
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			// frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			frame.setTitle(title);
+			frame.setTitle("Original");
 			frame.setResizable(false);
-			frame.pack();
+			// frame.pack();
 			frame.setVisible(true);
 		}
 
@@ -115,7 +134,8 @@ public class Viewer implements ActionListener {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 
-					setImage(f.apply(picture));
+				//	f.timed();
+					setImage(f.apply(picture), false);
 
 					if (lastApplied != null)
 						if (f == lastApplied) {
@@ -136,6 +156,7 @@ public class Viewer implements ActionListener {
 					frame.setTitle(frame.getTitle() + " -> " + f.getClass().getSimpleName());
 					lastApplied = f;
 					lastAppliedCount = 1;
+
 				}
 
 			});

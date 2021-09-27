@@ -1,8 +1,8 @@
-package core.filter;
+package core.filter.filters;
 
 import java.awt.Color;
 
-import core.filterTypes.Filter;
+import core.filter.filterTypes.Filter;
 
 public class GameOfLife extends Filter {
 

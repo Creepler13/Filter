@@ -1,14 +1,14 @@
-package core.filter;
+package core.filter.filters;
 
-import core.filterTypes.MatrixFilter;
+import core.filter.filterTypes.MatrixFilter;
 
-public class Relief extends MatrixFilter {
+public class Gaus extends MatrixFilter {
 
-	static double[][] matrix = { { -2, -1, 0 }, { -1, 1, 1 }, { 0, 1, 2 } };
+	double[][] matrix = { { 1, 2, 1 }, { 2, 4, 2 }, { 1, 2, 1 } };
 
 	@Override
 	public int getDivisor() {
-		return 1;
+		return 16;
 	}
 
 	@Override
