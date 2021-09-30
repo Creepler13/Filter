@@ -12,7 +12,7 @@ import core.filter.filters.MedianMatrix;
 import core.filter.filters.Prewitt;
 import core.filter.filters.Relief;
 import core.filter.filters.Scharr;
-import core.filter.filters.Schärfung;
+import core.filter.filters.Schaerfung;
 import core.filter.filters.Sobel;
 
 public class FilterLib {
@@ -25,7 +25,7 @@ public class FilterLib {
 	public static final Filter LAPLACE_MAX = new LaplaceMax();
 	public static final Filter MEDIAN = new MedianMatrix();
 	public static final Filter RELIEF = new Relief();
-	public static final Filter SCHÄRFUNG = new Schärfung();
+	public static final Filter SCHAERFUNG = new Schaerfung();
 	public static final Filter SCHARR = new Scharr();
 	public static final Filter SOBEL = new Sobel();
 	public static final Filter PREWITT = new Prewitt();

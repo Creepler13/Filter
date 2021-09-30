@@ -2,7 +2,7 @@ package core.filter.filters;
 
 import core.filter.filterTypes.MatrixFilter;
 
-public class Schärfung extends MatrixFilter {
+public class Schaerfung extends MatrixFilter {
 
 	static double[][] matrix = { { 0, -1, 0 }, { -1, 5, -1 }, { 0, -1, 0 } };
 
