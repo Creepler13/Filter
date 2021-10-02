@@ -14,6 +14,7 @@ import core.filter.filters.Relief;
 import core.filter.filters.Scharr;
 import core.filter.filters.Schaerfung;
 import core.filter.filters.Sobel;
+import core.filter.filters.TheVoid;
 
 public class FilterLib {
 
@@ -30,4 +31,5 @@ public class FilterLib {
 	public static final Filter SOBEL = new Sobel();
 	public static final Filter PREWITT = new Prewitt();
 	public static final Filter GAME_OF_LIVE = new GameOfLife();
+	public static final Filter THE_VOID = new TheVoid();
 }

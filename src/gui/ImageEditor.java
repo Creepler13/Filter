@@ -21,6 +21,7 @@ import javax.swing.KeyStroke;
 import core.filter.FilterLib;
 import core.filter.filterTypes.Filter;
 import core.filter.filters.GameOfLife;
+import core.filter.filters.TheVoid;
 import de.informatics4kids.Picture;
 
 public class ImageEditor {
@@ -165,6 +166,11 @@ public class ImageEditor {
 			if (f.getClass() == GameOfLife.class)
 				menuItem.setAccelerator(
 						KeyStroke.getKeyStroke(KeyEvent.VK_X, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+			
+			if (f.getClass() == TheVoid.class)
+				menuItem.setAccelerator(
+						KeyStroke.getKeyStroke(KeyEvent.VK_Y, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+
 
 			menu.add(menuItem);
 		}
